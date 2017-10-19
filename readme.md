@@ -62,13 +62,19 @@ const c = 7
 
 Simply cast: `python m2m.py <your-md-file>`
 
+## Can I try it?
+
+Sure, cast this: `python m2m.py example.md`
+
+New files will be created: `example.md-Test 1.xml` and `example.md-Test 2.xml`
+
 ## Is there anything special with the markdown file?
 
 Yes.
 
 * First, I treat `# section` as beginning of new section, because sometimes I write a quizes for different subjects in a single file.
 * Second, I treat `* question` as question. A question can contains multi-line string
-* Third, I treat ` - answer` as wrong answer and ` - answer ` as correct answer. The correct answer has extra space behind. An answer only contains single line
+* Third, I treat ` - answer` as wrong answer and ` - answer\s` as correct answer. The correct answer has extra space behind. An answer only contains single line
 * Any line preceeded by triple backtick will be converted to `<pre>` or `</pre>`
 
 ## Is there something wrong with the convertion?
