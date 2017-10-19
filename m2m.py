@@ -80,7 +80,7 @@ def completing_dictionary(dictionary):
             if correct_answer_count < 1:
                 correct_answer_count = 1
             question['single'] = correct_answer_count == 1
-            weight = round(100.0 / correct_answer_count, 2)
+            weight = round(100.0 / correct_answer_count, 7)
             for answer in question['answers']:
                 if answer['correct']:
                     answer['weight'] = weight
@@ -110,7 +110,7 @@ def question_to_xml(question):
         xml += answer_to_xml(answer)
     # other properties
     xml += '<shuffleanswers>1</shuffleanswers>'
-    xml += '<single>'+ 'true' if question['single'] else 'false' +'</single>'
+    xml += '<single>'+ ('true' if question['single'] else 'false') +'</single>'
     xml += '<answernumbering>abc</answernumbering>'
     xml += '</question>'
     return xml
