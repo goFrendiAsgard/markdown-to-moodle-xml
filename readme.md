@@ -8,35 +8,45 @@ Tool to convert this:
 # Test 1
 
 * What is the color of the sky?
-  - red
-  - green
-  - blue 
-  - yellow
+    - red
+    - green
+    - blue 
+    - yellow
 
 * Which ones are programmer's text editor?
-  - sublime text 
-  - vim 
-  - atom 
-  - microsoft word
+    - sublime text 
+    - vim 
+    - atom 
+    - microsoft word
 
 # Test 2
 
 * Who is the main protagonist in Dragon Ball?
-  - Son Goku 
-  - Picolo
-  - Son Gohan
-  - Vegeta
+    - Son Goku 
+    - Picolo
+    - Son Gohan
+    - Vegeta
 
 * Look at this code:
 `` ```javascript
 var a = 5
 let b = 6
 const c = 7
-`` ```
+``  ```
 Which one is immutable?
-  - a
-  - b
-  - c 
+    - a
+    - b
+    - c 
+
+* What is this?
+    ![turtle](turtle.png)
+    - A turtle 
+    - A bird
+
+* How do you spell $\alpha + \beta$?
+    - a plus b
+    - alpha plus beta
+    - a fish and a funny flag
 ```
 
 into this:
@@ -55,6 +65,7 @@ const c = 7
 ## Why?
 
 * Because writing quizes in `markdown` format is more pleasant than write it in `ms-office`, `libre-office` or `GIFT format`.
+* You can transform `markdown` file into `pdf` by using `pandoc`: `pandoc -f markdown  -o example.pdf example.md`
 * Because our live is too short to copy-pasting the quizes into moodle
 * Because sometimes `macro` doesn't work
 
@@ -74,7 +85,7 @@ Yes.
 
 * First, I treat `# section` as beginning of new section, because sometimes I write a quizes for different subjects in a single file.
 * Second, I treat `* question` as question. A question can contains multi-line string
-* Third, I treat ` - answer` as wrong answer and ` - answer\s` as correct answer. The correct answer has extra space behind. An answer only contains single line
+* Third, I treat ` - answer` as wrong answer and ` - answer<space>` as correct answer. The correct answer has extra space behind. An answer only contains single line
 * Any line preceeded by triple backtick will be converted to `<pre>` or `</pre>`
 
 ## Is there something wrong with the convertion?
