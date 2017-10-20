@@ -122,11 +122,11 @@ def answer_to_xml(answer):
     return xml
 
 def render_text(text):
-    if re.search(SINGLE_LINE_LATEX_PATTERN, text):
-        text = '<script type="text/javascript" async src="path-to-mathjax/MathJax.js?config=TeX-AMS_CHTML"></script>' + text
     text = re.sub(MULTI_LINE_CODE_PATTERN, replace_multi_line_code, text)
     text = re.sub(SINGLE_LINE_CODE_PATTERN, replace_single_line_code, text)
     text = re.sub(IMAGE_PATTERN, replace_image_pattern, text)
+    if re.search(SINGLE_LINE_LATEX_PATTERN, text):
+        text = text +'<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>'
     return text
 
 def replace_single_line_code(match):
