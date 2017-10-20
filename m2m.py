@@ -7,6 +7,7 @@ CORRECT_ANSWER_PATTERN = re.compile('^(\s*)-(\s)(.*)\s$')
 WRONG_ANSWER_PATTERN = re.compile('^(\s*)-(\s)(.*[^\s])$')
 SWITCH_PRE_TAG_PATTERN = re.compile('^```.*$')
 EMPTY_LINE_PATTERN = re.compile('^\s*$')
+IMAGE_PATTERN = re.compile('!\[.*\]\((.+)\)')
 
 def get_header(string):
     match = re.match(HEADER_PATTERN, string)
@@ -96,6 +97,7 @@ def section_to_xml(section):
     return xml
 
 def question_to_xml(question):
+    rendered_question_text = re.sub(IMAGE_PATTERN, md_match_to_image_tag, question['text'])
     xml = '<question type="multichoice">'
     # question name
     xml += '<name><text>'
@@ -103,7 +105,7 @@ def question_to_xml(question):
     xml += '</text></name>'
     # question text
     xml += '<questiontext format="html"><text><![CDATA['
-    xml += question['text']
+    xml += rendered_question_text 
     xml += ']]></text></questiontext>'
     # answer
     for answer in question['answers']:
@@ -120,6 +122,18 @@ def answer_to_xml(answer):
     xml += '<text>'+answer['text']+'</text>'
     xml += '</answer>'
     return xml
+
+def md_match_to_image_tag(match):
+    file_name = match.group(1)
+    return build_image_tag(file_name)
+
+def build_image_tag (file_name):
+    base64_image = ''
+    extension = file_name.split('.')[-1]
+    with open(file_name, "rb") as f:
+        data = f.read()
+        base64_image += data.encode("base64")
+    return '<img src="data:image/'+extension+';base64,'+base64_image+'" />'
 
 if __name__ == '__main__':
     md_file_name = sys.argv[1]
