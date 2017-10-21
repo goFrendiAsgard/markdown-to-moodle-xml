@@ -10,7 +10,8 @@ EMPTY_LINE_PATTERN = re.compile('^\s*$')
 IMAGE_PATTERN = re.compile('!\[.*\]\((.+)\)')
 MULTI_LINE_CODE_PATTERN = re.compile('```.*\n([\s\S]+)```', re.MULTILINE)
 SINGLE_LINE_CODE_PATTERN = re.compile('`([^`]+)`')
-SINGLE_LINE_LATEX_PATTERN = re.compile('\$\$(.+)\$\$')
+SINGLE_DOLLAR_LATEX_PATTERN = re.compile('\$(.+)\$')
+DOUBLE_DOLLAR_LATEX_PATTERN = re.compile('\$\$(.+)\$\$')
 
 def get_header(string):
     match = re.match(HEADER_PATTERN, string)
@@ -124,10 +125,14 @@ def answer_to_xml(answer):
 def render_text(text):
     text = re.sub(MULTI_LINE_CODE_PATTERN, replace_multi_line_code, text)
     text = re.sub(SINGLE_LINE_CODE_PATTERN, replace_single_line_code, text)
-    text = re.sub(IMAGE_PATTERN, replace_image_pattern, text)
-    if re.search(SINGLE_LINE_LATEX_PATTERN, text):
-        text = text +'<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>'
+    text = re.sub(IMAGE_PATTERN, replace_image, text)
+    text = re.sub(DOUBLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
+    text = re.sub(SINGLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
     return text
+
+def replace_latex(match):
+    code = match.group(1)
+    return '\(' + code + '\)'
 
 def replace_single_line_code(match):
     code = match.group(1)
@@ -137,7 +142,7 @@ def replace_multi_line_code(match):
     code = match.group(1)
     return '<pre><code>' + code + '</code></pre>'
 
-def replace_image_pattern(match):
+def replace_image(match):
     file_name = match.group(1)
     return build_image_tag(file_name)
 
