@@ -100,7 +100,7 @@ def question_to_xml(question, index):
     xml = '<question type="multichoice">'
     # question name
     xml += '<name><text>'
-    xml += str(index+1).rjust(4,'0') + hashlib.sha224(question['text'] + str(random.random())).hexdigest()
+    xml += str(index+1).rjust(4,'0') + hashlib.sha224((question['text'] + str(random.random())).encode('utf-8')).hexdigest()
     xml += '</text></name>'
     # question text
     xml += '<questiontext format="html"><text><![CDATA['
