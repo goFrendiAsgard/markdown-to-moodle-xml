@@ -1,4 +1,4 @@
-import sys, re, math, hashlib, random, json
+import sys, re, math, hashlib, random, json, base64
 
 NEW_LINE = '\n'
 HEADER_PATTERN = re.compile('^# (.*)$')
@@ -151,7 +151,7 @@ def build_image_tag (file_name):
     extension = file_name.split('.')[-1]
     with open(file_name, "rb") as f:
         data = f.read()
-        base64_image += data.encode("base64")
+        base64_image += str(base64.b64encode(data))
     return '<img style="display:block;" src="data:image/'+extension+';base64,'+base64_image+'" />'
 
 if __name__ == '__main__':
