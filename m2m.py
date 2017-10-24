@@ -1,4 +1,4 @@
-import sys, re, math, hashlib, random, json, base64
+import os, sys, re, math, hashlib, random, json, base64
 
 NEW_LINE = '\n'
 HEADER_PATTERN = re.compile('^# (.*)$')
@@ -88,15 +88,15 @@ def completing_dictionary(dictionary):
                     answer['weight'] = 0
     return dictionary
 
-def section_to_xml(section):
+def section_to_xml(section, md_dir_path):
     xml = '<?xml version="1.0" ?><quiz>'
-    for i,question in enumerate(section):
-        xml += question_to_xml(question, i)
+    for index,question in enumerate(section):
+        xml += question_to_xml(question, index, md_dir_path)
     xml += '</quiz>'
     return xml
 
-def question_to_xml(question, index):
-    rendered_question_text = render_text(question['text'])
+def question_to_xml(question, index, md_dir_path):
+    rendered_question_text = render_text(question['text'], md_dir_path)
     xml = '<question type="multichoice">'
     # question name
     xml += '<name><text>'
@@ -122,10 +122,10 @@ def answer_to_xml(answer):
     xml += '</answer>'
     return xml
 
-def render_text(text):
+def render_text(text, md_dir_path):
     text = re.sub(MULTI_LINE_CODE_PATTERN, replace_multi_line_code, text)
     text = re.sub(SINGLE_LINE_CODE_PATTERN, replace_single_line_code, text)
-    text = re.sub(IMAGE_PATTERN, replace_image, text)
+    text = re.sub(IMAGE_PATTERN, replace_image_wrapper(md_dir_path), text)
     text = re.sub(DOUBLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
     text = re.sub(SINGLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
     return text
@@ -142,9 +142,13 @@ def replace_multi_line_code(match):
     code = match.group(1)
     return '<pre><code>' + code + '</code></pre>'
 
-def replace_image(match):
-    file_name = match.group(1)
-    return build_image_tag(file_name)
+def replace_image_wrapper(md_dir_path):
+    def replace_image(match):
+        file_name = match.group(1)
+        if not os.path.isabs(file_name):
+            file_name = os.path.join(md_dir_path, file_name)
+        return build_image_tag(file_name)
+    return replace_image
 
 def build_image_tag (file_name):
     base64_image = ''
@@ -156,6 +160,7 @@ def build_image_tag (file_name):
 
 if __name__ == '__main__':
     md_file_name = sys.argv[1]
+    md_dir_path = os.path.dirname(os.path.abspath(md_file_name))
     md_file = open(md_file_name, 'r')
     md_script = md_file.read()
     dictionary = md_script_to_dictionary(md_script)
@@ -165,4 +170,4 @@ if __name__ == '__main__':
     for section_caption in dictionary:
         section = dictionary[section_caption]
         xml_file = open(md_file_name+'-'+section_caption+'.xml', 'w')
-        xml_file.write(section_to_xml(section))
+        xml_file.write(section_to_xml(section, md_dir_path))
