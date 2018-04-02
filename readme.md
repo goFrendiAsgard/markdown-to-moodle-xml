@@ -87,13 +87,14 @@ Yes.
 * Second, I treat `* question` as question. A question can contains multi-line string
 * Third, I treat ` - answer` as wrong answer and ` - answer<space>` as correct answer. The correct answer has extra space behind. An answer only contains single line
 * Any line preceeded by triple backtick will be converted to `<pre>` or `</pre>`
+* Any `![]()` will be converted into `<img src="data:image/png,base64,..."/>`
+* Any `$latex$` or `$$latex$$` will be converted into `\(\)`
 
-## Is there something wrong with the convertion?
+## Is there anything wrong with the convertion?
 
-Yes, Image, link, LaTex, bold and italic format, and everything else aside from the ones I mention in the previous section.
+Yes, any link, bold and italic format, and everything else aside from the ones I mention in the previous section.
 
 ## Prerequisites
 
 * Python
 * Human, non-muggle
-

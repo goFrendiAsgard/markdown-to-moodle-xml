@@ -1,17 +1,17 @@
 import os, sys, re, math, hashlib, random, json, base64
 
 NEW_LINE = '\n'
-HEADER_PATTERN = re.compile('^# (.*)$')
-QUESTION_PATTERN = re.compile('^(\s*)\*(\s)(.*)$')
-CORRECT_ANSWER_PATTERN = re.compile('^(\s*)-(\s)(.*)\s$')
-WRONG_ANSWER_PATTERN = re.compile('^(\s*)-(\s)(.*[^\s])$')
-SWITCH_PRE_TAG_PATTERN = re.compile('^```.*$')
-EMPTY_LINE_PATTERN = re.compile('^\s*$')
-IMAGE_PATTERN = re.compile('!\[.*\]\((.+)\)')
-MULTI_LINE_CODE_PATTERN = re.compile('```.*\n([\s\S]+)```', re.MULTILINE)
-SINGLE_LINE_CODE_PATTERN = re.compile('`([^`]+)`')
-SINGLE_DOLLAR_LATEX_PATTERN = re.compile('\$(.+)\$')
-DOUBLE_DOLLAR_LATEX_PATTERN = re.compile('\$\$(.+)\$\$')
+HEADER_PATTERN = re.compile(r'^# (.*)$')
+QUESTION_PATTERN = re.compile(r'^(\s*)\*(\s)(.*)$')
+CORRECT_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*)\s$')
+WRONG_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*[^\s])$')
+SWITCH_PRE_TAG_PATTERN = re.compile(r'^```.*$')
+EMPTY_LINE_PATTERN = re.compile(r'^\s*$')
+IMAGE_PATTERN = re.compile(r'!\[.*\]\((.+)\)')
+MULTI_LINE_CODE_PATTERN = re.compile(r'```.*\n([\s\S]+)```', re.MULTILINE)
+SINGLE_LINE_CODE_PATTERN = re.compile(r'`([^`]+)`')
+SINGLE_DOLLAR_LATEX_PATTERN = re.compile(r'\$(.+)\$')
+DOUBLE_DOLLAR_LATEX_PATTERN = re.compile(r'\$\$(.+)\$\$')
 
 def get_header(string):
     match = re.match(HEADER_PATTERN, string)
@@ -52,7 +52,6 @@ def is_wrong_answer(string):
 def md_script_to_dictionary(md_script):
     dictionary = {}
     section, current_question, current_answer = ([], {}, {})
-    is_inside_pre = False
     for md_row in md_script.split(NEW_LINE):
         if is_header(md_row):
             section = []
@@ -132,7 +131,7 @@ def render_text(text, md_dir_path):
 
 def replace_latex(match):
     code = match.group(1)
-    return '\(' + code + '\)'
+    return '\\(' + code + '\\)'
 
 def replace_single_line_code(match):
     code = match.group(1)
@@ -166,7 +165,7 @@ if __name__ == '__main__':
     dictionary = md_script_to_dictionary(md_script)
     # create json file for `debugging` purpose
     json_file = open(md_file_name+'.json', 'w')
-    json_file.write(json.dumps(dictionary))
+    json_file.write(json.dumps(dictionary, indent=2))
     for section_caption in dictionary:
         section = dictionary[section_caption]
         xml_file = open(md_file_name+'-'+section_caption+'.xml', 'w')
