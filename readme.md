@@ -98,3 +98,20 @@ Yes, any link, bold and italic format, and everything else aside from the ones I
 
 * Python
 * Human, non-muggle
+
+# Bonus: Web App
+
+I also make a web page so that you can write your markdown in the web and convert it into `pdf`, `doc`, and `moodle xml` at once.
+
+## Prerequisites
+
+* Flask `pip install Flask`
+* pypandoc `pip install pypandoc`
+
+## Run the server
+
+`python web.py`
+
+## Access the page
+
+`http://localhost:5000`
