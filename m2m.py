@@ -167,11 +167,12 @@ def md_to_xml_file (md_file_name):
     return dictionary
 
 def md_to_xml_string (md_script):
+    md_dir_path = os.getcwd()
     result = {}
     dictionary = md_script_to_dictionary(md_script)
     for section_caption in dictionary:
         section = dictionary[section_caption]
-        result[section_caption] = section_to_xml(section, os.getcwd())
+        result[section_caption] = section_to_xml(section, md_dir_path)
     return json.dumps(dictionary, indent=2)
      
 
