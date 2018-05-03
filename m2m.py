@@ -1,4 +1,4 @@
-import os, sys, re, math, hashlib, random, json, base64
+import os, sys, re, math, hashlib, random, json, base64, urllib
 
 NEW_LINE = '\n'
 HEADER_PATTERN = re.compile(r'^# (.*)$')
@@ -144,29 +144,42 @@ def replace_multi_line_code(match):
 def replace_image_wrapper(md_dir_path):
     def replace_image(match):
         file_name = match.group(1)
-        if not os.path.isabs(file_name):
+        if (not os.path.isabs(file_name)) and ('://' not in file_name):
             file_name = os.path.join(md_dir_path, file_name)
         return build_image_tag(file_name)
     return replace_image
 
 def build_image_tag (file_name):
-    base64_image = ''
     extension = file_name.split('.')[-1]
-    with open(file_name, "rb") as f:
-        data = f.read()
-        base64_image += str(base64.b64encode(data))
+    data = urllib.urlopen(file_name).read()
+    base64_image = str(base64.b64encode(data))
     return '<img style="display:block;" src="data:image/'+extension+';base64,'+base64_image+'" />'
 
-if __name__ == '__main__':
-    md_file_name = sys.argv[1]
+def md_to_xml_file (md_file_name):
     md_dir_path = os.path.dirname(os.path.abspath(md_file_name))
     md_file = open(md_file_name, 'r')
     md_script = md_file.read()
     dictionary = md_script_to_dictionary(md_script)
-    # create json file for `debugging` purpose
-    json_file = open(md_file_name+'.json', 'w')
-    json_file.write(json.dumps(dictionary, indent=2))
     for section_caption in dictionary:
         section = dictionary[section_caption]
         xml_file = open(md_file_name+'-'+section_caption+'.xml', 'w')
         xml_file.write(section_to_xml(section, md_dir_path))
+    return dictionary
+
+def md_to_xml_string (md_script):
+    result = {}
+    dictionary = md_script_to_dictionary(md_script)
+    for section_caption in dictionary:
+        section = dictionary[section_caption]
+        result[section_caption] = section_to_xml(section, os.getcwd())
+    return json.dumps(dictionary, indent=2)
+     
+
+if __name__ == '__main__':
+    try:
+        md_file_name = sys.argv[1]
+        md_file = open(md_file_name, 'r')
+        md_to_xml_file(md_file_name)
+    except:
+        md_script = sys.argv[1]
+        print(md_to_xml_string(md_script))

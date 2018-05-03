@@ -12,6 +12,11 @@
     - atom 
     - microsoft word
 
+* What is this?
+![logo](https://raw.githubusercontent.com/goFrendiAsgard/chimera-framework/master/logo.png)
+    - A turtle 
+    - A bird
+
 # Test 2
 
 * Who is the main protagonist in Dragon Ball?
