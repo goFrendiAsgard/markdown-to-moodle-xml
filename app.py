@@ -40,6 +40,7 @@ def convert():
     f = open(src_file_name, 'w')
     f.write(md)
     f.close()
+    zf.write(src_file_name)
     # generate doc
     try:
         pypandoc.convert_file(src_file_name, 'docx', outputfile=doc_file_name)
