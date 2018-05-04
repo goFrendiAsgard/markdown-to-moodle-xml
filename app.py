@@ -1,7 +1,6 @@
 import os
 import shutil
 import random
-import string
 import pypandoc
 import json
 import zipfile
@@ -11,7 +10,8 @@ app = Flask(__name__)
 
 
 def create_random_string(length):
-    return ''.join(random.choice(string.lowercase) for i in range(length))
+    lowercase = 'abcdefghijklmnopqrtuvwxyz'
+    return ''.join(random.choice(lowercase) for i in range(length))
 
 
 def create_directory_if_not_exists(path):
