@@ -45,13 +45,13 @@ def convert():
     try:
         pypandoc.convert_file(src_file_name, 'docx', outputfile=doc_file_name)
         zf.write(doc_file_name)
-    except Exception:
-        pass
+    except Exception as error:
+        print(error)
     try:
         pypandoc.convert_file(src_file_name, 'pdf', outputfile=pdf_file_name)
         zf.write(pdf_file_name)
-    except Exception:
-        pass
+    except Exception as error:
+        print(error)
     # generate xml
     xml_dictionary = json.loads(md_to_xml_string(md))
     for test_name in xml_dictionary:
