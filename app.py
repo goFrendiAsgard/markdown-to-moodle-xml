@@ -41,10 +41,16 @@ def convert():
     f.write(md)
     f.close()
     # generate doc
-    pypandoc.convert_file(src_file_name, 'docx', outputfile=doc_file_name)
-    zf.write(doc_file_name)
-    pypandoc.convert_file(src_file_name, 'pdf', outputfile=pdf_file_name)
-    zf.write(pdf_file_name)
+    try:
+        pypandoc.convert_file(src_file_name, 'docx', outputfile=doc_file_name)
+        zf.write(doc_file_name)
+    except Exception:
+        pass
+    try:
+        pypandoc.convert_file(src_file_name, 'pdf', outputfile=pdf_file_name)
+        zf.write(pdf_file_name)
+    except Exception:
+        pass
     # generate xml
     xml_dictionary = json.loads(md_to_xml_string(md))
     for test_name in xml_dictionary:
