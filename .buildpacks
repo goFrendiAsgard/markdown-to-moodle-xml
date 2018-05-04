@@ -1,3 +1,4 @@
 git://github.com/heroku/heroku-buildpack-python.git
 git://github.com/openjournals/pandoc-buildpack.git
 git://github.com/holiture/heroku-buildpack-tex.git
+git://github.com/milos-korenciak/heroku-buildpack-tex.git
