@@ -5,7 +5,11 @@ import hashlib
 import random
 import json
 import base64
-import urllib
+
+if sys.version_info[0] == 3:
+    from urllib.request import urlopen
+else:
+    from urllib import urlopen
 
 NEW_LINE = '\n'
 HEADER_PATTERN = re.compile(r'^# (.*)$')
@@ -86,6 +90,8 @@ def md_script_to_dictionary(md_script):
                 'correct': False}
             current_question['answers'].append(current_answer)
         elif not re.match(EMPTY_LINE_PATTERN, md_row):
+            if not('text' in current_question):
+                current_question['text'] = ''
             current_question['text'] += md_row + '\n'
     dictionary = completing_dictionary(dictionary)
     return dictionary
@@ -125,7 +131,7 @@ def question_to_xml(question, index, md_dir_path):
     xml = '<question type="multichoice">'
     # question name
     xml += '<name><text>'
-    xml += index_part + hashlib.sha224(q_part.encode('utf-8')).hexdigest()
+    xml += index_part + hashlib.sha224(q_part).hexdigest()
     xml += '</text></name>'
     # question text
     xml += '<questiontext format="html"><text><![CDATA['
@@ -184,7 +190,11 @@ def replace_image_wrapper(md_dir_path):
 
 def build_image_tag(file_name):
     extension = file_name.split('.')[-1]
-    data = urllib.urlopen(file_name).read()
+    try:
+        data = urlopen(file_name).read()
+    except Exception:
+        f = open(file_name, 'rb')
+        data = f.read()
     base64_image = str(base64.b64encode(data))
     src_part = 'data:image/' + extension + ';base64,' + base64_image
     return '<img style="display:block;" src="' + src_part + '" />'

@@ -62,8 +62,8 @@ def convert():
         zf.write(xml_file_name)
     # zip it
     zf.close()
-    with open(zip_file_name) as f:
-        file_content = f.read()
+    f = open(zip_file_name, 'rb')
+    file_content = f.read()
     response = make_response(file_content, 200)
     response.headers['Content-type'] = 'application/zip'
     os.remove(zip_file_name)
