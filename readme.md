@@ -90,13 +90,10 @@ Yes.
 * Any `![]()` will be converted into `<img src="data:image/png,base64,..."/>`
 * Any `$latex$` or `$$latex$$` will be converted into `\(\)`
 
-## Is there anything wrong with the convertion?
-
-Yes, any link, bold and italic format, and everything else aside from the ones I mention in the previous section.
-
 ## Prerequisites
 
 * Python
+* `markdown` python package (`pip install markdown`)
 * Human, non-muggle
 
 # Bonus: Web App

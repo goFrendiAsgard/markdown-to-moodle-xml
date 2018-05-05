@@ -5,6 +5,7 @@ import hashlib
 import random
 import json
 import base64
+from markdown import markdown
 
 if sys.version_info[0] == 3:
     from urllib.request import urlopen
@@ -12,10 +13,10 @@ else:
     from urllib import urlopen
 
 NEW_LINE = '\n'
-HEADER_PATTERN = re.compile(r'^# (.*)$')
+HEADER_PATTERN = re.compile(r'^\s*# (.*)$')
 QUESTION_PATTERN = re.compile(r'^(\s*)\*(\s)(.*)$')
-CORRECT_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*)\s$')
-WRONG_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*[^\s])$')
+CORRECT_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*) $')
+WRONG_ANSWER_PATTERN = re.compile(r'^(\s*)-(\s)(.*[^ ])$')
 SWITCH_PRE_TAG_PATTERN = re.compile(r'^```.*$')
 EMPTY_LINE_PATTERN = re.compile(r'^\s*$')
 IMAGE_PATTERN = re.compile(r'!\[.*\]\((.+)\)')
@@ -73,6 +74,8 @@ def md_script_to_dictionary(md_script):
     dictionary = {}
     section, current_question, current_answer = ([], {}, {})
     for md_row in md_script.split(NEW_LINE):
+        md_row = md_row.rstrip('\r')
+        md_row = md_row.rstrip('\n')
         if is_header(md_row):
             section = []
             dictionary[get_header(md_row)] = section
@@ -161,6 +164,7 @@ def render_text(text, md_dir_path):
     text = re.sub(IMAGE_PATTERN, replace_image_wrapper(md_dir_path), text)
     text = re.sub(DOUBLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
     text = re.sub(SINGLE_DOLLAR_LATEX_PATTERN, replace_latex, text)
+    text = markdown(text)
     return text
 
 

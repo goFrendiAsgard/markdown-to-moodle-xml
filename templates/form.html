@@ -1,5 +1,13 @@
+<style>
+  code{
+    border:1px solid black;
+  }
+  ul#ul-help li{
+    margin-bottom: 10px;
+  }
+</style>
+<form action="/convert" method="post" style="width:70%; display:inline-grid;">
 <h1>Markdown to Moodle</h1>
-<form action="/convert" method="post">
 <textarea name="md" style="width:100%; height:500px; resize:none;">
 # Test 1
 
@@ -29,3 +37,44 @@
 <br />
 <button>Convert</button>
 </form>
+<div style="display:inline-grid; width:28%;">
+  <ul id="ul-help">
+    <li>
+      <b>Section:</b>
+      You can write several test section and at least one section should be present.
+      Every test section should be preceeded with <code># </code> and followed with the <code>section name</code>.<br />
+      <b>Example: </b><br />
+      &nbsp;&nbsp;<code># Test 1</code><br />
+    </li>
+    <li>
+      <b>Question:</b>
+      You can write several questions in a single section.
+      Every question should be preceeded with <code>* </code>.<br />
+      <b>Example:</b><br />
+      &nbsp;&nbsp;<code>* What is the color of the sky?</code>
+    </li>
+    <li>
+      <b>Answer option:</b>
+      Every questions should has at least one correct answer option.
+      An options should be preceeded with <code>- </code>,
+      and the correct answer option should has a single space at the end of the line.
+      You can have more than one correct answer in a single question, and the weight of each answer will be calculated automatically<br />
+      <b>Correct answer option:</b><br />
+      &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- blue </code><br />
+      <b>Wrong answer option:</b><br />
+      &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- red</code>
+    </li>
+    <li>
+      <b>Image:</b>
+      You can embed the image by writing this format: <code>![image caption](image url)</code><br />
+      <b>Example:</b>
+      &nbsp;&nbsp;<code>![logo](https://website.com/logo.png)</code>
+    </li>
+    <li>
+      <b>Math Formula:</b>
+      You can embed math formula in this format: <code>$$latex-formula$$</code><br />
+      <b>Example:</b><br />
+      &nbsp;&nbsp;<code>$$\alpha + \beta$$</code>
+    </li>
+  </ul>
+</div>
