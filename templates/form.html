@@ -2,13 +2,21 @@
   code{
     border:1px solid black;
   }
+  ul#ul-help{
+    padding-left: 15px;
+  }
   ul#ul-help li{
     margin-bottom: 10px;
+    text-align: justify;
+  }
+  body {
+    margin-top:0px;
+    margin-bottom:0px;
   }
 </style>
-<form action="/convert" method="post" style="width:68%; display:inline-grid;">
+<form action="/convert" method="post" style="width:62%; display:inline-grid;">
 <h1>Markdown to Moodle</h1>
-<textarea name="md" style="width:100%; height:500px; resize:none;">
+<textarea name="md" style="width:100%; height:525px; resize:none;">
 # Test 1
 
 * What is the color of the sky?
@@ -37,7 +45,7 @@
 <br />
 <button>Convert</button>
 </form>
-<div style="display:inline-grid; width:30%; border:1px solid black;">
+<div style="display:inline-grid; width:36%; border:1px solid gray; padding:5px;">
   <b>Instructions in Creating Test Items or Questions</b>
   <ul id="ul-help">
     <li>
@@ -68,7 +76,7 @@
     <li>
       <b>Image:</b>
       You can embed the image by writing this format: <code>![image caption](image url)</code><br />
-      <b>Example:</b>
+      <b>Example:</b> <br />
       &nbsp;&nbsp;<code>![logo](https://website.com/logo.png)</code>
     </li>
     <li>
@@ -79,5 +87,5 @@
     </li>
   </ul>
   <b>Instructions in Importing XML into Moodle</b><br />
-  <p>Please refer to <a href="https://youtu.be/TFqcWTRz_L4" target="blank">https://youtu.be/TFqcWTRz_L4</a>
+  <div>Please refer to <a href="https://youtu.be/TFqcWTRz_L4" target="blank">https://youtu.be/TFqcWTRz_L4</a></div>
 </div>
