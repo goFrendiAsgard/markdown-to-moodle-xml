@@ -199,7 +199,7 @@ def build_image_tag(file_name):
     except Exception:
         f = open(file_name, 'rb')
         data = f.read()
-    base64_image = str(base64.b64encode(data))
+    base64_image = (base64.b64encode(data)).decode('utf-8')
     src_part = 'data:image/' + extension + ';base64,' + base64_image
     return '<img style="display:block;" src="' + src_part + '" />'
 
