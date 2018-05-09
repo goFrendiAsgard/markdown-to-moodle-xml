@@ -114,12 +114,15 @@
 <script>
   let oldContent = localStorage.getItem('md');
   let textArea = document.getElementById('mde');
-  if (oldContent != '') {
+  console.log(oldContent)
+  if (oldContent) {
     textArea.value = oldContent;
   }
   let simplemde = new SimpleMDE({
     element: textArea,
     status: false,
+    indentWithTabs: false,
+    tabSize: 4,
     showIcons: ['code'],
     hideIcons: ['quote', 'unordered-list', 'ordered-list', 'side-by-side', 'fullscreen'],
   });
