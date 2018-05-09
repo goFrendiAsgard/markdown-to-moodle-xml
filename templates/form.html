@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="/statics/simplemde/simplemde.min.css">
 <style>
   code{
-    border:1px solid black;
+    border: 1px solid black;
   }
   ul#ul-help{
     padding-left: 15px;
@@ -10,13 +11,32 @@
     text-align: justify;
   }
   body {
-    margin-top:0px;
-    margin-bottom:0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  form {
+    width: 62%;
+    display: inline-grid;
+  }
+  .CodeMirror {
+    height: 500px;
+  }
+  b#title {
+    font-size: xx-large;
+  }
+  div#guide {
+    display: inline-grid;
+    width: 36%;
+    border-left: 1px solid gray;
+    padding: 5px;
   }
 </style>
-<form action="/convert" method="post" style="width:62%; display:inline-grid;">
-<h1>Markdown to Moodle</h1>
-<textarea name="md" style="width:100%; height:525px; resize:none;">
+
+<title>Markdown to Moodle Converter</title>
+<form action="/convert" method="post">
+<b id="title">Markdown to Moodle Converter</b>
+<textarea id="mde" name="md">
 # Test 1
 
 * What is the color of the sky?
@@ -45,7 +65,7 @@
 <br />
 <button>Convert</button>
 </form>
-<div style="display:inline-grid; width:36%; border:1px solid gray; padding:5px;">
+<div id="guide">
   <b>Instructions in Creating Test Items or Questions</b>
   <ul id="ul-help">
     <li>
@@ -65,8 +85,8 @@
     <li>
       <b>Answer option:</b>
       Every questions should has at least one correct answer option.
-      An options should be preceeded with <code>- </code>,
-      and the correct answer option should has a single space at the end of the line.
+      An options should be preceeded with 4 spaces and <code>- </code>.
+      The correct answer option should has a single space at the end of the line.
       You can have more than one correct answer in a single question<br />
       <b>Correct answer option:</b><br />
       &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- blue </code><br />
@@ -89,3 +109,21 @@
   <b>Instructions in Importing XML into Moodle</b><br />
   <div>Please refer to <a href="https://youtu.be/TFqcWTRz_L4" target="blank">https://youtu.be/TFqcWTRz_L4</a></div>
 </div>
+
+<script src="/statics/simplemde/simplemde.min.js"></script>
+<script>
+  let oldContent = localStorage.getItem('md');
+  let textArea = document.getElementById('mde');
+  if (oldContent != '') {
+    textArea.value = oldContent;
+  }
+  let simplemde = new SimpleMDE({
+    element: textArea,
+    status: false,
+    showIcons: ['code'],
+    hideIcons: ['quote', 'unordered-list', 'ordered-list', 'side-by-side', 'fullscreen'],
+  });
+  simplemde.codemirror.on('change', function(){
+    localStorage.setItem('md', simplemde.value());
+  });
+</script>

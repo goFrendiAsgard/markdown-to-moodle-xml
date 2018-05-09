@@ -170,7 +170,7 @@ def render_text(text, md_dir_path):
 
 def replace_latex(match):
     code = match.group(1)
-    return '\\(' + code + '\\)'
+    return '$$' + code + '$$'
 
 
 def replace_single_line_code(match):

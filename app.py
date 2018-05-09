@@ -4,7 +4,7 @@ import random
 import pypandoc
 import json
 import zipfile
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, send_from_directory
 from m2m import md_to_xml_string
 app = Flask(__name__)
 
@@ -17,6 +17,11 @@ def create_random_string(length):
 def create_directory_if_not_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
+
+
+@app.route('/statics/<path:path>')
+def serve_static(path):
+    return send_from_directory('statics', path)
 
 
 @app.route('/')
