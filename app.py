@@ -72,8 +72,8 @@ def get_s_md(t_md):
     s_md = ''
     for md_row in t_md.split('\n'):
         md_row = md_row.rstrip()
-        if md_row[-3:] == '(*)':
-            md_row = md_row[:-3] + ' '
+        if md_row[-8:] == '(correct)':
+            md_row = md_row[:-8] + ' '
         s_md += md_row + '\n'
     return s_md
 
