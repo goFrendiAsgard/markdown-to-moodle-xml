@@ -20,10 +20,15 @@
     display: inline-grid;
   }
   .CodeMirror {
-    height: 500px;
+    height: 515px;
+    min-height: 70%;
+  }
+  textarea#mde {
+    height: 525px;
+    min-height: 80%;
   }
   b#title {
-    font-size: xx-large;
+    font-size: x-large;
   }
   div#guide {
     display: inline-grid;
@@ -38,28 +43,26 @@
 <b id="title">Markdown to Moodle Converter</b>
 <textarea id="mde" name="md">
 # Test 1
-
 * What is the color of the sky?
     - red
     - green
-    - blue 
+    - blue (x)
     - yellow
 
 * Which ones are programmer's `text editor`?
-    - sublime text 
-    - vim 
-    - atom 
+    - sublime text  (x)
+    - vim (x)
+    - atom (x)
     - microsoft word
 
 # Test 2
-
 * ![logo](https://raw.githubusercontent.com/goFrendiAsgard/chimera-framework/master/logo.png) What is this?
-    - Chimera framework logo 
+    - Chimera framework logo (x)
     - National flag of Wakanda
 
 * How do you spell $$\alpha + \beta$$?
     - a plus b
-    - alpha plus beta 
+    - alpha plus beta (x)
     - a fish and a funny flag
 </textarea>
 <br />
@@ -70,7 +73,7 @@
   <ul id="ul-help">
     <li>
       <b>Section:</b>
-      You can write several test section and at least one section should be present.
+      You can write several test sections, and at least one section should be present.
       Every test section should be preceeded with <code># </code> and followed with the <code>section name</code>.<br />
       <b>Example: </b><br />
       &nbsp;&nbsp;<code># Test 1</code><br />
@@ -86,10 +89,10 @@
       <b>Answer option:</b>
       Every questions should has at least one correct answer option.
       An options should be preceeded with 4 spaces and <code>- </code>.
-      The correct answer option should has a single space at the end of the line.
+      The correct answer option should has <code>(x)</code> at the end of the line.
       You can have more than one correct answer in a single question<br />
       <b>Correct answer option:</b><br />
-      &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- blue </code><br />
+      &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- blue (x)</code><br />
       <b>Wrong answer option:</b><br />
       &nbsp;&nbsp;<code>&nbsp;&nbsp;&nbsp;&nbsp;- red</code>
     </li>
@@ -124,7 +127,7 @@
     indentWithTabs: false,
     tabSize: 4,
     showIcons: ['code'],
-    hideIcons: ['quote', 'unordered-list', 'ordered-list', 'side-by-side', 'fullscreen'],
+    hideIcons: ['bold', 'italic', 'heading', 'quote', 'unordered-list', 'ordered-list', 'side-by-side', 'fullscreen', 'guide'],
   });
   simplemde.codemirror.on('change', function(){
     localStorage.setItem('md', simplemde.value());
