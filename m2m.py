@@ -171,8 +171,8 @@ def render_text(text, md_dir_path):
 def replace_latex(match):
     code = match.group(1)
     code = code.replace('(', '\\left(')
-    code = code.replace(')', '\\right(')
-    return '\\(' + code + '\\)'
+    code = code.replace(')', '\\right)')
+    return '\\\\\(' + code + '\\\\)'
 
 
 def replace_single_line_code(match):
