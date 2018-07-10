@@ -75,7 +75,7 @@ def get_s_md(t_md):
         if md_row[-10:] == ' (correct)':
             md_row = md_row[:-10] + ' '
         elif md_row[-6:] == ' (ans)':
-            md_row = md_row[:-6]
+            md_row = md_row[:-6] + ' '
         s_md += md_row + '\n'
     return s_md
 
