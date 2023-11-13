@@ -1,3 +1,5 @@
 example.md.json
 example.md-Test 1.xml
 example.md-Test 2.xml
+.venv
+__pycache__
