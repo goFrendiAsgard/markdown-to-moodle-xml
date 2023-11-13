@@ -66,7 +66,7 @@ const c = 7
 
 * Because writing quizes in `markdown` format is more pleasant than write it in `ms-office`, `libre-office` or `GIFT format`.
 * You can transform `markdown` file into `pdf` by using `pandoc`: `pandoc -f markdown  -o example.pdf example.md`
-* Because our live is too short to copy-pasting the quizes into moodle
+* Because our life is too short to copy-pasting the quizzes into moodle
 * Because sometimes `macro` doesn't work
 
 ## How to use?
@@ -98,7 +98,7 @@ Yes.
 
 # Bonus: Web App
 
-I also make a web page so that you can write your markdown in the web and convert it into `pdf`, `doc`, and `moodle xml` at once.
+I also make a web page so you can write your markdown on the web and convert it into `pdf`, `doc`, and `moodle xml` at once.
 
 ## Prerequisites
 
@@ -107,7 +107,7 @@ I also make a web page so that you can write your markdown in the web and conver
 
 ## Run the server
 
-`python web.py`
+`python app.py`
 
 ## Access the page
 

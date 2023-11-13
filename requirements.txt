@@ -1,18 +1,18 @@
 # ----------------------
 # Flask
 # ----------------------
-flask
+flask==3.0.0
 
 
 # ----------------------
 # Others
 # ----------------------
-pypandoc
-markdown
+pypandoc==1.12
+markdown==3.5.1
 
 
 # ----------------------
 # Production Server
 # ----------------------
-gevent
-gunicorn
+gevent==23.9.1
+gunicorn==21.2.0

@@ -4,7 +4,9 @@ import random
 import pypandoc
 import json
 import zipfile
-from flask import Flask, request, render_template, make_response, send_from_directory
+from flask import (
+    Flask, request, render_template, make_response, send_from_directory
+)
 from m2m import md_to_xml_string
 app = Flask(__name__)
 
