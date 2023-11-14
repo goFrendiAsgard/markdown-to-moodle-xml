@@ -98,7 +98,7 @@ Yes.
 
 # Bonus: Web App
 
-I also make a web page so you can write your markdown on the web and convert it into `pdf`, `doc`, and `moodle xml` at once.
+I also make a web app so you can write your markdown on the web and convert it into `pdf`, `doc`, and `moodle xml` at once.
 
 ## Prerequisites
 
@@ -107,8 +107,18 @@ I also make a web page so you can write your markdown on the web and convert it 
 
 ## Run the server
 
-`python app.py`
+```bash
+python app.py
+```
 
 ## Access the page
 
-`http://localhost:5000`
+You can access the web app by pointing your browser to [http://localhost:5000](http://localhost:5000)
+
+# Run as a Docker Container
+
+Additionally, you can run the Web App as a docker container:
+
+```bash
+docker run -d -p 5000:5000 --name markdown-to-moodle gofrendi/markdown-to-moodle
+```
